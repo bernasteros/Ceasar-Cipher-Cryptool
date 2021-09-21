@@ -1,7 +1,24 @@
 from charset import alphabet
 from art import logo
+from os import system, name
+from time import sleep as slp
 
 #TODO: Combine decryption and encryption in a single function ceasar()
+
+def clear():
+
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
+
+def refresh():
+    clear()
+    print(logo)
+
 def ceasar(start_text, shift, direction):
 
     msg_letters = [l for l in start_text]
@@ -35,21 +52,40 @@ def ceasar(start_text, shift, direction):
 
     print(f"The {direction}d text is {''.join(msg_letters)}")
 
-text = ""
-print(logo)
+def game_on():
+    print("\nStart new crypto-job?")
+    run_game = input("Press 'Y' to start or any key to quit: ").lower()
+    if run_game == "y":
+        return True
+    else:
+        print("Crypto-Process stopped.\n Good Bye!")
+        return False
+    slp(1)
 
-direction = input("Type 'encode' to encrypt,\ntype 'decode' to decrypt: ").lower()
+while game_on():
+    text = ""
+    shift = 0
+    refresh()
 
-while len(text) == 0:
-    text = input("Type your message: ").lower()
+    direction = input("Type 'encode' to encrypt,\ntype 'decode' to decrypt: ").lower()
+    slp(1)
+    refresh()
 
-    shift = int(input("Type the shift number:\n"))
-    
-    if shift > 26:
-        shift = shift % 26
+    while len(text) == 0:
+        text = input("Type your message: ").lower()
+        refresh()
+        slp(1)
 
-ceasar(text, shift, direction)
+    while shift <=0:
+        shift = int(input("Type the shift number: "))
+        
+        if shift > 26:
+            shift = shift % 26
+        refresh()
+        slp(1)
 
+    ceasar(text, shift, direction)
+    slp(1)
 #TODO-2: Inside the 'encrypt' function, shift each letter of the 'text' forwards in the alphabet by the shift amount and print the encrypted text.
 #e.g.
 #plain_text = "hello"
@@ -63,3 +99,4 @@ ceasar(text, shift, direction)
 ##🐛Bug alert: What happens if you try to encode the word 'civilization'?🐛
 
 #TODO-3: Call the encrypt function and pass in the user inputs. You should be able to test the code and encrypt a message.
+.
