@@ -15,16 +15,10 @@ def ceasar(start_text, shift, direction):
         alpha_letter = alphabet.index(m)
         alpha_index = len(alphabet) - 1
 
-        
-
 
         new_position = alpha_letter + shift
-        if alpha_letter == alpha_index or alpha_letter == 0:
-            if direction == "decode":
-                new_position = alpha_index - shift
-            else:
-                new_position = shift
-        elif new_position > alpha_index:
+
+        if new_position > alpha_index:
             new_position = new_position - alpha_index
         elif new_position < 0:
             new_position = new_position + alpha_index
