@@ -26,4 +26,3 @@ while game_on():
 
     ceasar(text, shift, direction)
     slp(1)
-.
