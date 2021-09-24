@@ -1,12 +1,23 @@
 from charset import alphabet
 
+# Function changes the input characters in the style of the ceasar_cipher
+# In our case we classically change the number of the letter by shifting 
+# it a certain number of characters forward (encode) or backward (decode)
+
 def ceasar(start_text, shift, direction):
 
+# The input message is splitted 
+# into its characters and put on a list
     msg_letters = [l for l in start_text]
 
+# Decide on the direction of the letter movement
     if direction == "decode":
         shift *= -1
 
+# Every letter in the start_text is assigned 
+# to the index of our alphabet key. 
+# If it is not a part of the alphabet 
+# (numbers, symbols) it will be ignored.
     for m in msg_letters:
         if m not in alphabet:
             continue
@@ -14,14 +25,20 @@ def ceasar(start_text, shift, direction):
         text_letter = msg_letters.index(m)
         alpha_letter = alphabet.index(m)
         alpha_index = len(alphabet) - 1
+
+# The simplest scenario: If the new position
+# after the shift is on the index of the alphabet 
+# the original letter will be replaced by the 
+# shifted letter of the alphabet.  
         new_position = alpha_letter + shift
 
         if new_position >=0 or new_position <= alpha_index:
-            msg_letters[text_letter] = alphabet[new_position]
-            continue               
-        elif alpha_letter == 0 and direction == "decode":
-            msg_letters[text_letter] = alphabet[alpha_index - shift]
-        elif alpha_letter == alpha_index and direction == "encode":
-            msg_letters[text_letter] = alphabet[shift - 1]
+            msg_letters[text_letter] = alphabet[new_position]              
+
+        elif new_position < 0:
+            msg_letters[text_letter] = alphabet[alpha_index + new_position]
+
+        elif new_position > alpha_index:
+            msg_letters[text_letter] = alphabet[new_position - 1]
 
     print(f"The {direction}d text is {''.join(msg_letters)}")
