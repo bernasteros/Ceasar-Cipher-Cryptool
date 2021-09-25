@@ -18,6 +18,7 @@ def ceasar(start_text, shift, direction):
 # to the index of our alphabet key. 
 # If it is not a part of the alphabet 
 # (numbers, symbols) it will be ignored.
+    end_string = ""
     for m in msg_letters:
         if m not in alphabet:
             continue
@@ -25,20 +26,17 @@ def ceasar(start_text, shift, direction):
         text_letter = msg_letters.index(m)
         alpha_letter = alphabet.index(m)
         alpha_index = len(alphabet) - 1
+        
 
 # The simplest scenario: If the new position
 # after the shift is on the index of the alphabet 
 # the original letter will be replaced by the 
-# shifted letter of the alphabet.  
+# shifted letter of the alphabet.          
         new_position = alpha_letter + shift
 
-        if new_position >=0 or new_position <= alpha_index:
-            msg_letters[text_letter] = alphabet[new_position]              
-
-        elif new_position < 0:
-            msg_letters[text_letter] = alphabet[alpha_index + new_position]
-
-        elif new_position > alpha_index:
-            msg_letters[text_letter] = alphabet[new_position - 1]
-
-    print(f"The {direction}d text is {''.join(msg_letters)}")
+        if new_position > alpha_index:
+            new_position = new_position - alpha_index - 1
+        
+        msg_letters[text_letter] = alphabet[new_position] 
+        end_string += msg_letters[text_letter]           
+    print(f"The {direction}d text is {end_string}")
