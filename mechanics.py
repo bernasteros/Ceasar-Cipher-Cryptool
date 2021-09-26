@@ -1,9 +1,8 @@
-from art import logo
 from os import system, name
 from time import sleep as slp
 
-def clear():
 
+def clear():
     # for windows
     if name == 'nt':
         _ = system('cls')
@@ -11,10 +10,6 @@ def clear():
     # for mac and linux(here, os.name is 'posix')
     else:
         _ = system('clear')
-
-def refresh():
-    clear()
-    print(logo)
 
 
 def game_on():
